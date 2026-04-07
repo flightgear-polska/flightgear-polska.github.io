@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Schema from '../components/Schema.astro';
+---
+<Layout title="FlightGear Polska | Prawdziwy Symulator Lotu 0 zł">
+  <Schema />
+  
+  <header class="fixed w-full top-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/10">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-heading font-bold text-white">FG<span class="text-brand-500">PL</span></div>
+      <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-300">
+        <a href="/lotniska/polska/epwa" class="hover:text-white transition">Polskie Lotniska (Demo)</a>
+        <a href="/poradniki/" class="hover:text-white transition">Optymalizacja PC</a>
+        <a href="/samoloty/" class="hover:text-white transition">Maszyny</a>
+      </nav>
+      <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-[0_0_15px_rgba(20,184,166,0.5)]">
+        Pobierz Grę
+      </a>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-20 relative overflow-hidden">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-600/30 blur-[120px] rounded-full point-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full point-events-none"></div>
+
+    <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 relative z-10">
+      
+      <div class="flex-1 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm mb-6">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          W 100% Darmowy Open-Source
+        </div>
+        
+        <h1 class="text-5xl lg:text-7xl font-heading font-black leading-tight mb-6">
+          Prawdziwy Symulator Lotu na PC.<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-500 animate-gradient-x">100% Realizmu, 0 zł.</span>
+        </h1>
+        
+        <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0">
+          Zasiądź za sterami Boeinga 737 lub Cessny nad Polską w FlightGear – darmowym symulatorze tworzonym przez pilotów dla pasjonatów.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+          <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 hover:scale-105 transition-all text-white font-bold rounded-lg text-lg text-center shadow-[0_0_30px_rgba(20,184,166,0.3)]">
+            ZACZNIJ LATAĆ ZA DARMO
+          </a>
+          <div class="flex items-center gap-2 text-sm text-gray-400">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            Brak ukrytych kosztów
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-1 w-full relative">
+        <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative aspect-video bg-dark-800">
+          <div class="absolute inset-0 flex items-center justify-center flex-col text-gray-500">
+             <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+             <span>[ Miejsce na zapętlony render WebM z kokpitu EPWA ]</span>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-dark-900/90 to-transparent backdrop-blur-[2px]">
+             <div class="text-sm font-semibold">Aktualna Sceneria: Polska (VFR)</div>
+             <div class="text-xs text-brand-400">FPS: 60 • Ultra Textures</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</Layout>
