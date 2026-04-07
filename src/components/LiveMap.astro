@@ -1,0 +1,55 @@
+---
+---
+<div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-dark-900 mt-10">
+  <div class="p-4 bg-dark-800 border-b border-white/5 flex justify-between items-center z-10 relative">
+    <h3 class="text-xl font-bold font-heading"><span class="text-red-500 animate-pulse">●</span> LIVE VFR RADAR (Polska)</h3>
+    <span class="text-xs text-brand-500 font-mono" id="map-status">Odświeżono przed sekundą</span>
+  </div>
+  
+  <div id="fg-map" class="w-full h-[500px] z-0"></div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // 1. Zabezpieczamy kontekst Leaflet i ustawiamy VFR FIR WARSZAWA
+  const map = L.map('fg-map').setView([52.0693, 19.4803], 6);
+  
+  // 2. Mroczna wersja mapy dla spójności UI (Carto Dark)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap', subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  let planesLayer = L.layerGroup().addTo(map);
+  const planeIcon = L.divIcon({ className: 'custom-icon', html: '<div class="w-4 h-4 bg-brand-500 rounded-full shadow-[0_0_10px_#14b8a6]"></div>' });
+
+  // 3. Logic Fetch: Przebijamy brak HTTPS na serwerze MP używając darmowego proxy.
+  const fetchTraffic = async () => {
+    try {
+      const targetUrl = encodeURIComponent('http://mpmap02.flightgear.org/json/');
+      const proxyUrl = `https://corsproxy.io/?${targetUrl}`;
+      
+      const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error('MP Server dead');
+      
+      const data = await response.json();
+      planesLayer.clearLayers(); // Hard-reset warstwy dla czystości pamięci
+      
+      // Plotujemy tylko samoloty latające nad EU/PL, żeby nie zabić renderera tysiącami obiektów
+      const localFlights = data.flights.filter(f => f.lat > 48.0 && f.lat < 55.0 && f.lon > 13.0 && f.lon < 25.0);
+
+      localFlights.forEach(f => {
+         L.marker([f.lat, f.lon], {icon: planeIcon}).addTo(planesLayer)
+          .bindPopup(`<strong class="text-brand-500">${f.callsign}</strong><br>Wysokość: ${f.alt} ft<br>Prędkość: ${f.spd} kts<br>Model: ${f.model}`);
+      });
+      document.getElementById('map-status').innerText = 'Odświeżono: ' + new Date().toLocaleTimeString();
+    } catch (e) {
+      document.getElementById('map-status').innerText = 'OFFLINE (MP MAP DOWN)';
+    }
+  }
+
+  fetchTraffic();
+  // Złota Pętla Optymalizacyjna: ping co 30 sekund nie zabija CPU klienta i wstrzymuje limity proxy.
+  setInterval(fetchTraffic, 30000);
+</script>

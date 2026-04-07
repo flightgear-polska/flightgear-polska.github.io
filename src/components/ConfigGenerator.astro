@@ -1,0 +1,71 @@
+---
+---
+<div class="bg-dark-800 p-8 rounded-xl border border-white/10 text-white shadow-2xl relative overflow-hidden">
+  <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+
+  <h2 class="text-3xl font-bold mb-2 font-heading text-white">Smart <span class="text-brand-500">XML Generator</span></h2>
+  <p class="text-gray-400 mb-8 text-sm">Przeglądarkowa rekompilacja struktury preferences.xml. Bez uploadowania, 100% Client-Side Blob API.</p>
+  
+  <form id="config-form" class="space-y-6 relative z-10">
+    <div>
+      <label class="block text-sm mb-2 text-gray-300 font-bold">Poziom Sprzętowy (Algorytm LOD / Shaders):</label>
+      <select id="pc-level" class="bg-dark-900 border border-white/20 rounded-lg p-4 w-full text-white cursor-pointer hover:border-brand-500 transition focus:outline-none">
+        <option value="low">Low-End (Maksymalne Klatki - Wyłączone ALS)</option>
+        <option value="mid" selected>Mid-Range (Zbalansowane - Shader level 3)</option>
+        <option value="ultra">Ultra (Fotorealizm - Obłoki wolumetryczne, Shader level 5)</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm mb-2 text-gray-300 font-bold">Customowa ścieżka do VFR Polska:</label>
+      <input type="text" id="scenery-path" value="C:\FlightGear\CustomScenery" class="bg-dark-900 border border-white/20 rounded-lg p-4 w-full text-white font-mono text-sm focus:outline-none focus:border-brand-500 transition" />
+    </div>
+
+    <button type="submit" class="bg-brand-500 hover:bg-brand-600 font-bold py-4 px-6 rounded-lg w-full transition shadow-[0_0_15px_rgba(20,184,166,0.3)] hover:shadow-[0_0_25px_rgba(20,184,166,0.5)]">
+      Generuj & Instaluj w locie
+    </button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('config-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const lvl = document.getElementById('pc-level').value;
+    const path = document.getElementById('scenery-path').value;
+    
+    // Brutalna optymalizacja logiczna: mapping flag
+    let shaders = lvl === 'ultra' ? '5' : (lvl === 'mid' ? '3' : '0');
+    let als = lvl === 'low' ? 'false' : 'true';
+    let clouds = lvl === 'ultra' ? 'true' : 'false';
+
+    const xmlPayload = `<?xml version="1.0"?>
+<PropertyList>
+  <sim>
+    <rendering>
+      <als-enable type="bool">${als}</als-enable>
+      <shaders>
+        <quality-level type="int">${shaders}</quality-level>
+      </shaders>
+      <clouds3d-enable type="bool">${clouds}</clouds3d-enable>
+    </rendering>
+    <fg-scenery type="string">${path}</fg-scenery>
+  </sim>
+</PropertyList>`;
+
+    // Tworzenie bloba w locie - OS nie rejestruje operacji ściągania jako zewnętrznej.
+    const blob = new Blob([xmlPayload], { type: 'text/xml' });
+    const localUrl = URL.createObjectURL(blob);
+    
+    const virtualLink = document.createElement('a');
+    virtualLink.href = localUrl;
+    virtualLink.download = 'preferences.xml';
+    document.body.appendChild(virtualLink);
+    virtualLink.click();
+    
+    // GC (Garbage Collection) Cleanup
+    setTimeout(() => {
+        document.body.removeChild(virtualLink);
+        URL.revokeObjectURL(localUrl);
+    }, 100);
+  });
+</script>
