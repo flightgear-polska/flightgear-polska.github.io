@@ -1,0 +1,17 @@
+name: Autopilot UGC Loop
+on:
+  pull_request_target:
+    types: [closed]
+jobs:
+  build-post:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          AUTHOR="${{ github.event.pull_request.user.login }}"
+          DATE=$(date +'%Y-%m-%d')
+          mkdir -p src/content/galerie
+          echo -e "---\ntitle: Galeria od $AUTHOR\nauthor: $AUTHOR\ndate: $DATE\n---\nScreeny z ujęcia wykonanego przez $AUTHOR." > src/content/galerie/${AUTHOR}-${DATE}.md
+          git config user.name "bot" && git config user.email "bot@fgpl.io"
+          git add . && git commit -m "Auto-UGC: Galeria gracza $AUTHOR" && git push
