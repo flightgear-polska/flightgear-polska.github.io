@@ -1,70 +1,170 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Schema from '../components/Schema.astro';
 ---
-<Layout title="FlightGear Polska | Prawdziwy Symulator Lotu 0 zł">
-  <Schema />
+<Layout title="FlightGear Polska - Oficjalny Polski Portal Symulatora Lotu" description="Darmowy symulator lotu. Pobierz FlightGear. Boeing 737 JSBSim, sceneria VFR Polska, darmowe lotnictwo, procedury lotnicze open-source.">
   
-  <header class="fixed w-full top-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/10">
+  <header class="fixed w-full top-0 z-50 bg-black/95 backdrop-blur-md border-b-2 border-cyan-900/50">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="h-10 flex items-center">
-        <img src="/assets/logo.png" alt="FGPL Logo" class="h-full object-contain" />
+      <div class="h-10 flex items-center gap-4">
+        <img src="/assets/logo.png" alt="FlightGear Polska Logo" class="h-full object-contain" />
+        <span class="text-xl font-black tracking-widest text-white uppercase hidden sm:block">FLIGHTGEAR <span class="text-cyan-500">POLSKA</span></span>
       </div>
-      <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-300">
-        <a href="/lotniska/polska/epwa" class="hover:text-white transition">Polskie Lotniska (Demo)</a>
-        <a href="/poradniki/" class="hover:text-white transition">Optymalizacja PC</a>
-        <a href="/samoloty/" class="hover:text-white transition">Maszyny</a>
+      <nav class="hidden md:flex gap-8 text-sm font-bold text-gray-300 uppercase tracking-widest">
+        <a href="https://github.com/flightgear-polska" target="_blank" title="Składnica Kodu GitHub FlightGear Polska" class="hover:text-cyan-400 transition-colors">GitHub</a>
+        <a href="https://discord.gg/" target="_blank" title="Społeczność Discord FGPL" class="hover:text-cyan-400 transition-colors">Discord</a>
+        <a href="https://www.youtube.com/user/flightgearpolska" target="_blank" title="Kanał YouTube FGPL" class="hover:text-cyan-400 transition-colors">YouTube</a>
       </nav>
-      <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-[0_0_15px_rgba(20,184,166,0.5)]">
-        Pobierz Grę
-      </a>
     </div>
   </header>
 
-  <main class="pt-32 pb-20 relative overflow-hidden">
-    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-600/30 blur-[120px] rounded-full point-events-none"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full point-events-none"></div>
+  <main class="bg-black text-white selection:bg-cyan-500 selection:text-black">
+    
+    <!-- BRUTALIST HERO SECTION -->
+    <section class="relative pt-40 pb-24 border-b-2 border-cyan-900/50 overflow-hidden">
+      <!-- RAW VIDEO LOOP PLACEHOLDER -->
+      <div class="absolute inset-0 z-0 bg-gray-900">
+        <div class="absolute inset-0 bg-black/85 z-10"></div>
+        <div class="w-full h-full flex flex-col items-center justify-center text-cyan-900/30 text-xs font-mono border-4 border-dashed border-cyan-900/20 m-2">
+           <span>[ RAW VIDEO LOOP ]</span>
+           <span>TURBINE START / LOW PASS MVT</span>
+           <span>NO AUDIO / WEBM H.265</span>
+        </div>
+      </div>
 
-    <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 relative z-10">
+      <div class="container mx-auto px-6 relative z-20">
+        <div class="max-w-5xl">
+          <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none mb-6 text-white drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+            FLIGHTGEAR POLSKA <br/>
+            <span class="text-cyan-500">– OFICJALNY POLSKI PORTAL SYMULATORA LOTU.</span>
+          </h1>
+          <h2 class="text-xl md:text-2xl font-bold text-gray-400 uppercase tracking-widest mb-12 border-l-4 border-cyan-500 pl-6 leading-relaxed">
+            Open-Source Flight Simulation | JSBSim Physics | Community Driven.
+          </h2>
+          
+          <div class="flex flex-col sm:flex-row gap-6">
+            <a href="https://www.flightgear.org/download/" target="_blank" title="Pobierz FlightGear darmowy symulator lotu" class="px-8 py-5 bg-cyan-600 hover:bg-cyan-500 text-black font-black uppercase tracking-widest rounded-sm transition-all text-center drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+              [ POBIERZ FLIGHTGEAR – STRONA OFICJALNA ]
+            </a>
+            <a href="https://discord.gg/" target="_blank" title="Dołącz do Discorda Lotniczego" class="px-8 py-5 bg-transparent border-2 border-cyan-600 hover:border-cyan-400 hover:bg-cyan-900/20 text-cyan-500 font-black uppercase tracking-widest rounded-sm transition-all text-center">
+              [ DOŁĄCZ DO EKIPY (DISCORD) ]
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMMATIC LINK GRID (SEO MEAT) -->
+    <section class="py-24 bg-black container mx-auto px-6">
       
-      <div class="flex-1 text-center lg:text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm mb-6">
-          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-          W 100% Darmowy Open-Source
-        </div>
-        
-        <h1 class="text-5xl lg:text-7xl font-heading font-black leading-tight mb-6">
-          Prawdziwy Symulator Lotu na PC.<br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-500 animate-gradient-x">100% Realizmu, 0 zł.</span>
-        </h1>
-        
-        <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0">
-          Zasiądź za sterami Boeinga 737 lub Cessny nad Polską w FlightGear – darmowym symulatorze tworzonym przez pilotów dla pasjonatów.
-        </p>
+      <!-- Category: Flota -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-black text-white uppercase tracking-tighter border-b-4 border-cyan-500 pb-2 inline-block mb-10">:: Flota Maszyn</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Boeing 737-800YV</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">FDM: JSBSim<br/>Systems: High-Fidelity<br/>License: GPL</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="Boeing 737-800YV FlightGear Repozytorium" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
+          
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Cessna 172P</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">FDM: JSBSim<br/>Systems: Study-Level VFR<br/>License: GPL</p>
+            </div>
+            <a href="https://wiki.flightgear.org/Cessna_172P" target="_blank" title="Dokumentacja Cessna 172P FlightGear" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ WIKI DOCUMENTATION ]</a>
+          </article>
 
-        <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-          <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 hover:scale-105 transition-all text-white font-bold rounded-lg text-lg text-center shadow-[0_0_30px_rgba(20,184,166,0.3)]">
-            ZACZNIJ LATAĆ ZA DARMO
-          </a>
-          <div class="flex items-center gap-2 text-sm text-gray-400">
-            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            Brak ukrytych kosztów
-          </div>
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">PZL Koliber</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">FDM: YASim<br/>Origin: Polski Aeroklub<br/>License: GPL</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="PZL Koliber Repozytorium GitHub" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
+
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">MiG-21</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">FDM: YASim<br/>Systems: Combat/Radar<br/>License: GPL</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="MiG-21 Repozytorium GitHub FlightGear" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
         </div>
       </div>
 
-      <div class="flex-1 w-full relative">
-        <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative aspect-video bg-dark-800">
-          <div class="absolute inset-0">
-             <img src="/assets/fgpl4sst005.png" alt="FlightGear Polska symulator lotu" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition duration-500" />
-          </div>
-          <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-dark-900/90 to-transparent backdrop-blur-[2px]">
-             <div class="text-sm font-semibold">Aktualna Sceneria: Polska (VFR)</div>
-             <div class="text-xs text-brand-400">FPS: 60 • Ultra Textures</div>
-          </div>
+      <!-- Category: Sceneria -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-black text-white uppercase tracking-tighter border-b-4 border-cyan-500 pb-2 inline-block mb-10">:: Sceneria Polska</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Polska VFR (Project)</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: OSM2City + Ortho<br/>Coverage: FIR Warszawa<br/>Status: Active</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="Polska Sceneria Projekt VFR" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
+
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Lotnisko EPKS Poznań-Krzesiny</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: Custom 3D Base<br/>Features: F-16 Shelters<br/>License: GPL</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="Lotnisko Wojskowe EPKS Sceneria" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
+
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">EPPW Powidz (Airbase)</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: Military Scenery<br/>Features: Tacan, ILS, 3D Models<br/>License: GPL</p>
+            </div>
+            <a href="https://github.com/flightgear-polska" target="_blank" title="Baza Wojskowa Powidz EPPW Sceneria" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ REPOZYTORIUM GITHUB ]</a>
+          </article>
         </div>
       </div>
 
-    </div>
+      <!-- Category: Technologia -->
+      <div class="mb-10">
+        <h2 class="text-3xl font-black text-white uppercase tracking-tighter border-b-4 border-cyan-500 pb-2 inline-block mb-10">:: Technologia Symulacji</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">JSBSim Physics Engine</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: 6DoF Flight Dynamics<br/>Usage: NASA & FGPL<br/>Format: XML</p>
+            </div>
+            <a href="https://wiki.flightgear.org/JSBSim" target="_blank" title="Architektura JSBSim Dokumentacja" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ WIKI DOCUMENTATION ]</a>
+          </article>
+          
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Nasal Scripting</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: Embedded Language<br/>Usage: Avionics & Systems<br/>Syntax: C-like</p>
+            </div>
+            <a href="https://wiki.flightgear.org/Nasal" target="_blank" title="Język Skryptowy Nasal Dokumentacja" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ WIKI DOCUMENTATION ]</a>
+          </article>
+
+          <article class="border-2 border-gray-800 bg-gray-900 p-6 rounded-sm hover:border-cyan-500 transition-colors group flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 uppercase group-hover:text-cyan-400 transition-colors">Canvas API</h3>
+              <p class="text-sm font-mono text-gray-400 mb-6 leading-relaxed">Type: 2D Drawing API<br/>Usage: Glass Cockpit (MFD/PFD)<br/>Format: OpenVG</p>
+            </div>
+            <a href="https://wiki.flightgear.org/Canvas" target="_blank" title="Technologia Canvas API MFD" class="block w-full text-center py-3 bg-black hover:bg-cyan-900 text-cyan-500 font-bold uppercase text-xs tracking-widest border border-cyan-900/50 transition-colors">[ WIKI DOCUMENTATION ]</a>
+          </article>
+        </div>
+      </div>
+
+    </section>
+
   </main>
+
+  <footer class="bg-gray-900 border-t border-cyan-900/50 py-12">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <p class="text-gray-500 font-mono text-xs uppercase tracking-widest">Made by FGPL Team - 2020-2026</p>
+      <div class="flex gap-8">
+        <a href="https://www.youtube.com/user/flightgearpolska" title="32k views social proof | FlightGear Polska" target="_blank" class="text-gray-400 hover:text-cyan-500 font-bold uppercase text-xs tracking-widest transition-colors">YouTube</a>
+        <a href="https://github.com/flightgear-polska" target="_blank" title="Oficjalne Repozytorium GitHub" class="text-gray-400 hover:text-cyan-500 font-bold uppercase text-xs tracking-widest transition-colors">GitHub</a>
+      </div>
+    </div>
+  </footer>
 </Layout>
