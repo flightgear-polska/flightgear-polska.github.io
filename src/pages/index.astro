@@ -1,174 +1,140 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="FlightGear Polska | Wirtualni Piloci" description="Polski hub wirtualnych pilotów. Darmowy symulator lotu. Tu latamy dla frajdy. Dowiedz się, dołącz i szybuj w otwartym niebie.">
+<Layout title="FLIGHTGEAR POLSKA - DARMOWY SYMULATOR LOTU | Oficjalny Hub" description="FLIGHTGEAR POLSKA - Darmowy symulator lotu. JSBSim, Nasal, MP Server Map, Quick Start Pack. Pobierz FlightGear za darmo.">
   
-  <header class="fixed w-full top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="h-10 flex items-center gap-4">
-        <img src="/assets/logo.png" alt="FlightGear Polska Logo" class="h-full object-contain" />
-        <span class="text-xl font-black tracking-widest text-white uppercase hidden sm:block">FLIGHTGEAR POLSKA</span>
+  <header class="w-full bg-[#050505] border-b-4 border-cyan-500 py-6">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-3xl font-black tracking-widest text-white uppercase flex items-center gap-4">
+        <!-- Prawa autorskie / Brand Identity -->
+        <img src="/assets/logo.png" alt="FLIGHTGEAR POLSKA - Logotyp darmowego symulatora" class="h-10 object-contain" />
+        FLIGHTGEAR <span class="text-cyan-500">POLSKA</span>
       </div>
-      <nav class="hidden md:flex gap-8 text-sm font-bold text-gray-300 uppercase tracking-widest">
-        <a href="https://github.com/flightgear-polska" target="_blank" class="hover:text-cyan-400 transition-colors">GitHub</a>
-        <a href="https://discord.gg/" target="_blank" class="hover:text-cyan-400 transition-colors">Discord</a>
-        <a href="https://www.youtube.com/user/flightgearpolska" target="_blank" class="hover:text-cyan-400 transition-colors">YouTube</a>
+      <nav class="flex gap-6 text-sm font-bold text-gray-500 uppercase tracking-widest">
+        <a href="https://github.com/flightgear-polska" target="_blank" class="hover:text-cyan-500 transition-colors" title="Kod Źródłowy FLIGHTGEAR POLSKA (GitHub)">GitHub</a>
+        <a href="https://discord.gg/" target="_blank" class="hover:text-cyan-500 transition-colors" title="Skrzydło FLIGHTGEAR POLSKA (Discord)">Discord</a>
+        <a href="https://wiki.flightgear.org/" target="_blank" class="hover:text-cyan-500 transition-colors" title="Dokumentacja FLIGHTGEAR POLSKA (Wiki)">Wiki</a>
       </nav>
     </div>
   </header>
 
-  <main class="bg-black text-white overflow-hidden pb-12">
+  <main class="bg-[#0a0a0a] text-white min-h-screen py-16 font-mono">
     
-    <!-- DYNAMIC HERO SECTION -->
-    <section class="relative h-screen min-h-[700px] flex items-center border-b border-white/5">
-      <!-- YouTube Embed Background -->
-      <div class="absolute inset-0 z-0 bg-black overflow-hidden pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black z-10"></div>
-        <iframe 
-          class="absolute top-1/2 left-1/2 w-[150vw] h-[150vh] -translate-x-1/2 -translate-y-1/2 object-cover opacity-50"
-          src="https://www.youtube.com/embed/S2Cti12_njI?autoplay=1&mute=1&controls=0&loop=1&playlist=S2Cti12_njI&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" 
-          frameborder="0" 
-          allow="autoplay; encrypted-media" 
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div class="container mx-auto px-6 relative z-20 mt-16 reveal">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-6xl md:text-8xl lg:text-[100px] font-black uppercase tracking-tighter leading-none mb-6 drop-shadow-2xl">
-            FLIGHTGEAR POLSKA
-          </h1>
-          <h2 class="text-2xl md:text-3xl font-bold text-gray-300 mb-12 drop-shadow-lg font-heading px-4">
-            Polski hub wirtualnych pilotów. Tu latamy dla frajdy.
-          </h2>
-          
-          <div class="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href="https://download.flightgear.org/builds/nightly/" target="_blank" class="px-8 py-5 bg-cyan-600 hover:bg-cyan-500 text-black font-black uppercase tracking-widest rounded-full transition-transform text-center drop-shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-105">
-              POBIERZ FG (Dla Grafik HDR)
-            </a>
-            <a href="https://github.com/flightgear-polska" target="_blank" class="px-8 py-5 bg-black/50 backdrop-blur border-2 border-white/20 hover:border-cyan-400 hover:text-cyan-400 text-white font-black uppercase tracking-widest rounded-full transition-transform text-center hover:scale-105">
-              POBIERZ SAMOLOTY (Katalog ZIP)
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- O NAS (ABOUT US) -->
-    <section class="py-24 px-6 reveal">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-black text-white uppercase tracking-tighter mb-8">Kim jesteśmy?</h2>
-        <p class="text-xl text-gray-400 leading-relaxed">
-          Nie jesteśmy obcą korporacją wydającą DLC. Jesteśmy ekipą zapaleńców, która od lat rozwija darmowe lotnictwo symulacyjne. Budujemy maszyny dopieszczone do ostatniego nita i latajmy nad mapami, których nikt nam nigdy nie zamknie za paywallem. Liczy się czysty pilotaż, bez względu na układ karty graficznej.
-        </p>
-      </div>
-    </section>
-
-    <!-- LIVE MP STATUS -->
-    <section class="py-16 bg-gradient-to-b from-black to-cyan-950/20 border-y border-white/5 reveal">
-      <div class="container mx-auto px-6 text-center">
-         <div class="inline-flex flex-col items-center justify-center p-8 bg-black/60 backdrop-blur rounded-3xl border border-cyan-500/30 w-full max-w-xl shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-            <span class="w-4 h-4 bg-green-500 rounded-full animate-pulse mb-4 drop-shadow-[0_0_10px_rgba(34,197,94,1)]"></span>
-            <h3 class="text-3xl font-black text-white mb-2" id="mp-counter">Teraz w polskim niebie: <span class="text-cyan-500 animate-pulse">Ładowanie...</span></h3>
-            <p class="text-gray-400 mb-6 text-sm">Analiza sygnałów wieloosobowej przestrzeni powietrznej</p>
-            <a href="https://mpmap02.flightgear.org/" target="_blank" class="text-cyan-400 font-bold uppercase tracking-widest border-b border-cyan-400 hover:text-white hover:border-white transition-colors text-sm">
-              ZOBACZ LIVE MAPĘ W PRZEGLĄDARCE
-            </a>
-         </div>
-      </div>
-    </section>
-
-    <!-- FEATURED FLEET (JSBSIM CATALOG) -->
-    <section class="py-24 container mx-auto px-6 reveal">
-      <div class="mb-16 text-center max-w-2xl mx-auto">
-        <h2 class="text-4xl font-black text-white uppercase tracking-tighter mb-4">Wyselekcjonowana Flota</h2>
-        <p class="text-gray-400 text-lg">Tylko maszyny o rygorystycznym modelu aerodynamicznym opracowanym siłami społeczności domeny Open-Source.</p>
-      </div>
-        
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-        <article class="bg-gray-900 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 border border-white/5 group shadow-xl">
-          <h3 class="text-3xl font-bold text-white mb-4 uppercase group-hover:text-cyan-400 transition-colors">Boeing 737-800YV</h3>
-          <p class="text-gray-400 mb-8 leading-relaxed text-lg">Od lat najpotężniejsza darmowa symulacja modelu 737 na rynku. Systemy, kompletny FMC, hydraulika i realistyczny panel nawigacyjny 3D.</p>
-          <a href="https://github.com/flightgear-polska" target="_blank" class="inline-block px-6 py-3 bg-white/10 hover:bg-cyan-600 text-white hover:text-black font-bold uppercase rounded-full transition-colors text-sm tracking-widest">
-            Pobierz z GitHuba &rarr;
-          </a>
-        </article>
-        
-        <article class="bg-gray-900 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 border border-white/5 group shadow-xl">
-          <h3 class="text-3xl font-bold text-white mb-4 uppercase group-hover:text-cyan-400 transition-colors">Cessna 172P</h3>
-          <p class="text-gray-400 mb-8 leading-relaxed text-lg">Król przestworzy VFR na całym świecie. Model lotu rygorystycznie otestowany we wbudowanych tunelach powietrznych. Pełne Cold & Dark.</p>
-          <a href="https://wiki.flightgear.org/Cessna_172P" target="_blank" class="inline-block px-6 py-3 bg-white/10 hover:bg-cyan-600 text-white hover:text-black font-bold uppercase rounded-full transition-colors text-sm tracking-widest">
-            Opis techniczny &rarr;
-          </a>
-        </article>
-      </div>
+    <div class="container mx-auto px-6">
       
-      <div class="text-center">
-        <a href="https://github.com/flightgear-polska" target="_blank" class="text-gray-400 hover:text-cyan-400 font-bold uppercase tracking-widest transition-colors font-mono">
-          Zobacz pełną Flotę (Katalog Zewnętrzny)
-        </a>
-      </div>
-    </section>
+      <!-- MASSIVE HEADER -->
+      <section class="mb-24 text-center md:text-left border-l-8 border-cyan-500 pl-6 py-4 bg-black/50">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white mb-4 tracking-tighter">
+          FLIGHTGEAR POLSKA<br/>
+          <span class="text-gray-500 block text-2xl md:text-5xl mt-2 tracking-widest drop-shadow-md">- DARMOWY SYMULATOR LOTU</span>
+        </h1>
+        <p class="text-lg md:text-xl text-cyan-400 font-bold tracking-widest uppercase">
+          SYSTEMS ONLINE. NO ARCADE PHYSICS. HIGH-UTILITY AGGREGATOR.
+        </p>
+      </section>
 
-    <!-- FGPL DEV STUDIO PRIDE BANNER -->
-    <section class="py-12 container mx-auto px-6 reveal">
-       <div class="bg-gradient-to-br from-gray-900 to-black border border-white/10 p-12 md:p-16 rounded-3xl flex flex-col items-center text-center shadow-2xl">
-          <span class="text-cyan-500 font-black uppercase tracking-widest mb-4 border border-cyan-500 px-4 py-1 rounded-full text-xs">Duma Narodowa FGPL</span>
-          <h3 class="text-5xl md:text-6xl font-black uppercase text-white mb-6">PZL Koliber 150/160A</h3>
-          <p class="text-xl text-gray-300 leading-relaxed mb-10 max-w-3xl">
-            Pracujemy nad przeniesieniem na ekrany najgenialniejszego polskiego samolotu szkoleniowego z niezrównanym odwzorowaniem zachowania aerodynamicznego.
-          </p>
-          <a href="https://github.com/flightgear-polska" target="_blank" class="px-10 py-5 bg-white text-black hover:bg-cyan-400 font-black uppercase tracking-widest rounded-full transition-transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-            WESPRZYJ PROJEKT / ZOBACZ KOD
+      <!-- TOOLBOX GRID -->
+      <section class="mb-24">
+        <h2 class="text-2xl font-black uppercase text-cyan-500 border-b-2 border-gray-800 pb-4 mb-8">:: OPERATIONS TOOLBOX</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <a href="https://www.flightgear.org/download/" target="_blank" title="Pobierz FLIGHTGEAR POLSKA Quick Start Pack" class="group block p-8 bg-[#050505] border-2 border-cyan-600 hover:bg-cyan-600 hover:text-black transition-all shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <h3 class="text-2xl font-black uppercase mb-4 group-hover:text-black text-cyan-500">[ QUICK START PACK ]</h3>
+            <p class="text-sm font-bold text-gray-400 group-hover:text-black leading-relaxed">Najnowsza stabilna wersja silnika (Win/Mac/Lin). Pakiet zawiera domyślne mapy wysokościowe oraz bazę samolotów JSBSim.</p>
           </a>
-       </div>
-    </section>
 
+          <a href="https://mpmap02.flightgear.org/" target="_blank" title="FLIGHTGEAR POLSKA MP Server Map" class="group block p-8 bg-[#050505] border-2 border-gray-800 hover:border-white transition-all">
+            <h3 class="text-2xl font-black uppercase mb-4 text-white">[ MP SERVER MAP ]</h3>
+            <p class="text-sm font-bold text-gray-500 group-hover:text-gray-300 leading-relaxed">Zintegrowany Tracking Live VFR. Weryfikuj ruch sieciowy nad Polską bezpośrednio w infrastrukturze Multiplayer.</p>
+          </a>
+
+          <a href="https://wiki.flightgear.org/" target="_blank" title="FLIGHTGEAR POLSKA Technical Stack Wiki" class="group block p-8 bg-[#050505] border-2 border-gray-800 hover:border-white transition-all">
+            <h3 class="text-2xl font-black uppercase mb-4 text-white">[ TECHNICAL WIKI ]</h3>
+            <p class="text-sm font-bold text-gray-500 group-hover:text-gray-300 leading-relaxed">Dokumentacja developerska: Nasal Scripting, modele FDM (JSBSim/YASim) Canvas API i integracja kontrolerów (XML).</p>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- LATEST COMMITS FEED -->
+      <section class="mb-24">
+        <h2 class="text-2xl font-black uppercase text-cyan-500 border-b-2 border-gray-800 pb-4 mb-6 flex justify-between items-center">
+          <span>:: LATEST REPOSITORY COMMITS</span>
+          <span class="text-xs bg-cyan-600 text-black px-3 py-1 font-black animate-pulse rounded-sm">API SYNC</span>
+        </h2>
+        
+        <div class="bg-[#050505] border border-gray-800 p-0 overflow-x-auto rounded-sm">
+          <table class="w-full text-left text-sm whitespace-nowrap table-auto">
+            <thead class="text-gray-600 border-b border-gray-800 bg-[#020202]">
+              <tr>
+                <th class="p-6">TAG / DATA (UTC)</th>
+                <th class="p-6">AUTOR COMMITA</th>
+                <th class="p-6">STRUKTURA LOGICZNA</th>
+                <th class="p-6">BLOB SHA</th>
+              </tr>
+            </thead>
+            <tbody id="commits-feed" class="text-gray-400">
+              <tr>
+                <td colspan="4" class="p-8 text-center text-gray-600 font-bold italic animate-pulse">Nawiązywanie połączenia z GitHub API...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <footer class="bg-black py-16 border-t border-white/5">
-    <div class="container mx-auto px-6 flex flex-col items-center text-center">
-      <div class="flex gap-8 mb-8">
-        <a href="https://www.youtube.com/user/flightgearpolska" title="Kanał YouTube" target="_blank" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">YouTube</a>
-        <a href="https://github.com/flightgear-polska" target="_blank" title="Oficjalne Repozytorium" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">GitHub</a>
-        <a href="https://discord.gg/" target="_blank" title="Serwer Discord" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">Discord</a>
+  <footer class="bg-[#050505] border-t-2 border-cyan-900 py-12 font-mono">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-gray-600 text-xs font-bold tracking-widest uppercase">
+        &copy; FLIGHTGEAR POLSKA TEAM | FIZYKA LOTU & OPEN SOURCE | 2026
       </div>
-      <p class="text-gray-700 font-mono text-xs uppercase tracking-widest">Wystrugane z automatu. Made by FGPL Team | 2020-2026</p>
+      <div class="text-gray-600 text-xs font-bold tracking-widest uppercase">
+        SYSTEM STATUS: <span class="text-green-500">OPERATIONAL</span>
+      </div>
     </div>
   </footer>
 
   <script>
-    // System Płynnych Animacji (IntersectionObserver)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.replace('translate-y-10', 'translate-y-0');
-          entry.target.classList.replace('opacity-0', 'opacity-100');
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.add('transition-all', 'duration-1000', 'translate-y-10', 'opacity-0');
-      observer.observe(el);
-    });
-
-    // Pobieranie Live Tracker-a asynchronicznie (Zero-Backend)
-    const fetchCounter = async () => {
+    // GitHub API Live Fetch Pipeline
+    const fetchCommits = async () => {
       try {
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent('http://mpmap02.flightgear.org/json/');
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error();
-        const data = await response.json();
-        const plFlights = data.flights.filter((f: any) => f.lat > 48.0 && f.lat < 55.0 && f.lon > 13.0 && f.lon < 25.0);
-        document.getElementById('mp-counter').innerHTML = `Teraz w polskim niebie: <span class="text-cyan-500">${plFlights.length} maszyn</span>`;
-      } catch (e) {
-        document.getElementById('mp-counter').innerHTML = `Teraz w polskim niebie: <span class="text-gray-500">Trwa nasłuch...</span>`;
+        const repo = 'flightgear-polska/flightgear-polska.github.io';
+        // Wyciągamy ostatnie 6 commitów technicznych
+        const response = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=6`);
+        if (!response.ok) throw new Error('API Rate Limit Exceeded');
+        const commits = await response.json();
+        
+        const feed = document.getElementById('commits-feed');
+        feed.innerHTML = '';
+        
+        commits.forEach((c: any) => {
+          const date = new Date(c.commit.author.date).toLocaleString('pl-PL', { dateStyle: 'short', timeStyle: 'short'});
+          const sha = c.sha.substring(0, 7);
+          // Separacja typu commita jeżeli użyto Conventional Commits (np. feat:, fix:, docs:)
+          const msgArray = c.commit.message.split('\n')[0].split(':');
+          const type = msgArray.length > 1 ? msgArray[0] + ':' : 'commit:';
+          const content = msgArray.length > 1 ? msgArray.slice(1).join(':') : msgArray[0];
+
+          const row = `
+            <tr class="border-b border-gray-900 hover:bg-gray-800 transition">
+              <td class="p-6 text-cyan-600 font-bold tracking-widest">${date}</td>
+              <td class="p-6 text-white font-bold">${c.commit.author.name}</td>
+              <td class="p-6 text-gray-300 truncate max-w-lg" title="${c.commit.message}">
+                <span class="text-gray-500 uppercase tracking-widest text-xs mr-2">${type}</span> ${content}
+              </td>
+              <td class="p-6"><a href="${c.html_url}" target="_blank" class="text-cyan-600 hover:text-cyan-400 underline font-mono tracking-widest">${sha}</a></td>
+            </tr>
+          `;
+          feed.innerHTML += row;
+        });
+      } catch (err) {
+        document.getElementById('commits-feed').innerHTML = '<tr><td colspan="4" class="p-8 text-center text-red-500 font-bold uppercase tracking-widest">Błąd GitHub API. Spróbuj powrócić za godzinę w przypadku restrykcji RATE_LIMIT.</td></tr>';
       }
     };
     
-    // Uruchom natychmiast i powtarzaj ping co sekundę limitów
-    fetchCounter();
-    setInterval(fetchCounter, 30000);
+    // Inicjacja przy załadowaniu DOM
+    fetchCommits();
   </script>
 </Layout>
