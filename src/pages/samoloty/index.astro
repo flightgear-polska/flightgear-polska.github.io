@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Najlepsze darmowe samoloty do symulatora PC | FlightGear">
+  <div class="container mx-auto px-6 py-32 max-w-5xl">
+    <a href="/" class="text-brand-500 hover:text-white transition text-sm mb-4 inline-block">&larr; Wróć na główną</a>
+    <h1 class="text-5xl font-heading font-black text-white mb-8">Katalog <span class="text-brand-500">Maszyn</span></h1>
+    <p class="text-xl text-gray-400 mb-12 leading-relaxed">Poznaj najbardziej dopracowane, darmowe statki powietrzne dostępne we FlightGear. Nasi deweloperzy budują modele lotu w oparciu o realne specyfikacje aerodynamiczne i instrukcje operacyjne producentów (FCOM).</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <a href="#" class="group block bg-dark-800 border border-white/10 rounded-2xl p-8 hover:border-brand-500 transition relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+        <div class="relative z-10">
+          <h2 class="text-3xl font-bold mb-4 text-white group-hover:text-brand-400 transition">Boeing 737-800</h2>
+          <p class="text-gray-400 mb-6 font-medium">Ikona lotnictwa pasażerskiego. Posiada w pełni funkcjonalny komputer FMC, obsługę LNAV/VNAV i hiperrealistyczne procedury startowe.</p>
+          <span class="inline-block bg-brand-500/20 text-brand-400 px-3 py-1 rounded text-sm font-bold">Wysoki realizm</span>
+        </div>
+      </a>
+      
+      <a href="#" class="group block bg-dark-800 border border-white/10 rounded-2xl p-8 hover:border-brand-500 transition relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+        <div class="relative z-10">
+          <h2 class="text-3xl font-bold mb-4 text-white group-hover:text-brand-400 transition">Cessna 172P Skyhawk</h2>
+          <p class="text-gray-400 mb-6 font-medium">Bezapelacyjnie najlepsza i najpopularniejsza maszyna VFR. Idealna do nauki pilotażu, przeglądania widoków nad polskimi miastami i wprawek w układach klasycznych.</p>
+          <span class="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-sm font-bold">Domyślny samolot</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -7,7 +7,9 @@ import Schema from '../components/Schema.astro';
   
   <header class="fixed w-full top-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/10">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-heading font-bold text-white">FG<span class="text-brand-500">PL</span></div>
+      <div class="h-10 flex items-center">
+        <img src="/assets/logo.png" alt="FGPL Logo" class="h-full object-contain" />
+      </div>
       <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-300">
         <a href="/lotniska/polska/epwa" class="hover:text-white transition">Polskie Lotniska (Demo)</a>
         <a href="/poradniki/" class="hover:text-white transition">Optymalizacja PC</a>
@@ -53,9 +55,8 @@ import Schema from '../components/Schema.astro';
 
       <div class="flex-1 w-full relative">
         <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative aspect-video bg-dark-800">
-          <div class="absolute inset-0 flex items-center justify-center flex-col text-gray-500">
-             <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-             <span>[ Miejsce na zapętlony render WebM z kokpitu EPWA ]</span>
+          <div class="absolute inset-0">
+             <img src="/assets/fgpl4sst005.png" alt="FlightGear Polska symulator lotu" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition duration-500" />
           </div>
           <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-dark-900/90 to-transparent backdrop-blur-[2px]">
              <div class="text-sm font-semibold">Aktualna Sceneria: Polska (VFR)</div>
