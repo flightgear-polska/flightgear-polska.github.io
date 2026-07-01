@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const addony = await getCollection('addony');
+
+const kategorie = [
+  'Narzędzia pilota',
+  'VFR i nawigacja',
+  'Obsługa naziemna i multiplayer',
+  'ATC i immersja',
+  'Interfejs i kamery',
+] as const;
+
+const pogrupowane = kategorie.map(kategoria => ({
+  kategoria,
+  wpisy: addony.filter(a => a.data.kategoria === kategoria).sort((a, b) => a.data.nazwa.localeCompare(b.data.nazwa)),
+})).filter(grupa => grupa.wpisy.length > 0);
+
+const trudnoscKolor: Record<string, string> = {
+  'Łatwa': 'bg-emerald-500/20 text-emerald-400',
+  'Średnia': 'bg-amber-500/20 text-amber-400',
+  'Zaawansowana': 'bg-red-500/20 text-red-400',
+};
+---
+<Layout
+  title="Addony do FlightGear | Dziennik lotów, ATC, multiplayer i więcej | FGPL"
+  description="Sprawdzone przez społeczność FGPL dodatki (addony) do FlightGear: Logbook, SimBrief Import, Which Runway, Spoken ATC, Ground Services i inne narzędzia rozszerzające symulator."
+>
+  <main class="container mx-auto px-6 py-20 max-w-5xl">
+    <nav aria-label="Okruszki" class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-brand-400 transition-colors">Strona główna</a> / <span class="text-gray-300">Addony</span>
+    </nav>
+    <h1 class="text-5xl font-heading font-black text-white mb-8">Addony i <span class="text-brand-500">Rozszerzenia</span></h1>
+    <p class="text-xl text-gray-400 mb-4 leading-relaxed">FlightGear sam w sobie jest kompletnym symulatorem, ale prawdziwa siła tego projektu leży w addonach – niewielkich rozszerzeniach tworzonych przez społeczność, które dodają nowe funkcje bez modyfikowania samego symulatora.</p>
+    <p class="text-gray-500 mb-12 leading-relaxed">Addon instalujesz niezależnie od samolotu – wystarczy wskazać folder w launcherze (zakładka <strong class="text-gray-300">Add-ons</strong>). Każdy z poniższych wpisów ma osobną instrukcję instalacji.</p>
+
+    {pogrupowane.map(grupa => (
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-brand-500 pl-4">{grupa.kategoria}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {grupa.wpisy.map(a => (
+            <a href={`/addony/${a.slug}/`} class="group block bg-dark-800 border border-white/10 rounded-2xl p-6 hover:border-brand-500 transition">
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <h3 class="text-lg font-bold text-white group-hover:text-brand-400 transition-colors">{a.data.nazwa}</h3>
+                <span class={`shrink-0 px-2 py-1 rounded text-xs font-bold ${trudnoscKolor[a.data.trudnoscInstalacji]}`}>{a.data.trudnoscInstalacji}</span>
+              </div>
+              <p class="text-gray-400 text-sm mb-3">{a.data.opisKrotki}</p>
+              <p class="text-gray-600 text-xs uppercase tracking-widest">{a.data.kompatybilnosc}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <div class="mt-4 p-6 bg-dark-800 rounded-xl border border-white/5 flex flex-wrap items-center justify-between gap-4">
+      <p class="text-gray-400 text-sm">Znasz addon, którego tu nie ma? Daj nam znać.</p>
+      <a href="https://discord.gg/5J7uVYRhZV" target="_blank" rel="noopener noreferrer" class="text-brand-500 font-bold text-sm hover:text-brand-400 transition-colors">Zgłoś na Discordzie &rarr;</a>
+    </div>
+  </main>
+
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://flightgear-polska.github.io/' },
+      { '@type': 'ListItem', position: 2, name: 'Addony', item: 'https://flightgear-polska.github.io/addony/' },
+    ],
+  })} />
+</Layout>

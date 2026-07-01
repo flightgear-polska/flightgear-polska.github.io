@@ -1,19 +1,120 @@
 ---
+import Schema from '../components/Schema.astro';
+
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  noindex?: boolean;
 }
-const { title, description = 'Darmowy, realistyczny symulator lotu na PC.' } = Astro.props;
+
+const {
+  title,
+  description = 'FlightGear Polska – polska społeczność darmowego, open-source\'owego symulatora lotu FlightGear. Pokazy lotnicze, poradniki, scenerie i samoloty.',
+  image = '/assets/logo.png',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
+
+const navLinks = [
+  { href: '/#flota', label: 'Maszyny' },
+  { href: '/samoloty/', label: 'Samoloty' },
+  { href: '/addony/', label: 'Addony' },
+  { href: '/poradniki/', label: 'Poradniki' },
+  { href: '/lotniska/polska/', label: 'Lotniska' },
+  { href: '/wydarzenia/', label: 'Wydarzenia' },
+  { href: '/o-nas/', label: 'O nas' },
+];
+
+const discordInvite = 'https://discord.gg/5J7uVYRhZV';
 ---
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#050505" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FlightGear Polska" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="pl_PL" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <Schema />
+    <slot name="head" />
+    <!-- Analityka: GoatCounter (bez cookies, bez własnego hostingu) -->
+    <script data-goatcounter="https://flightgearpl.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
   </head>
   <body class="bg-dark-900 text-white font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <header class="w-full bg-dark-950 border-b border-gray-800 py-4 sticky top-0 z-50">
+      <div class="container mx-auto px-6 flex justify-between items-center gap-4">
+        <a href="/" class="flex items-center gap-3 shrink-0">
+          <img src="/assets/logo.png" alt="FlightGear Polska" class="h-10 object-contain" width="40" height="40" />
+          <span class="text-lg font-black tracking-widest text-white uppercase hidden sm:block">FlightGear Polska</span>
+        </a>
+        <nav class="flex flex-wrap justify-end gap-x-6 gap-y-2 text-sm font-bold text-gray-400 uppercase tracking-widest">
+          {navLinks.map(link => (
+            <a href={link.href} class="hover:text-brand-400 transition-colors">{link.label}</a>
+          ))}
+          <a href={discordInvite} target="_blank" rel="noopener noreferrer" class="text-brand-400 hover:text-white transition-colors">Dołącz na Discord</a>
+        </nav>
+      </div>
+    </header>
+
     <slot />
+
+    <footer class="bg-dark-950 border-t border-gray-900 py-16 mt-auto">
+      <div class="container mx-auto px-6 text-center">
+        <div class="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-8">
+          <a href="https://www.youtube.com/@FlightGearPL" title="YouTube" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">Oglądaj [YouTube]</a>
+          <a href="https://github.com/flightgear-polska" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">Koduj [GitHub]</a>
+          <a href={discordInvite} target="_blank" rel="noopener noreferrer" title="Discord" class="text-gray-500 hover:text-white font-bold uppercase text-sm tracking-widest transition-colors">Dyskutuj [Discord]</a>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-6 text-xs text-gray-600 uppercase tracking-widest">
+          <a href="/samoloty/" class="hover:text-gray-300 transition-colors">Samoloty</a>
+          <a href="/addony/" class="hover:text-gray-300 transition-colors">Addony</a>
+          <a href="/poradniki/" class="hover:text-gray-300 transition-colors">Poradniki</a>
+          <a href="/lotniska/polska/" class="hover:text-gray-300 transition-colors">Lotniska w Polsce</a>
+          <a href="/wydarzenia/" class="hover:text-gray-300 transition-colors">Wydarzenia</a>
+          <a href="/galeria/" class="hover:text-gray-300 transition-colors">Galeria</a>
+          <a href="/o-nas/" class="hover:text-gray-300 transition-colors">O nas</a>
+        </nav>
+        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-xs text-gray-700 uppercase tracking-widest">
+          <a href="https://wiki.flightgear.org/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors">FlightGear Wiki</a>
+          <a href="https://forum.flightgear.org/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors">Forum FlightGear</a>
+          <a href="https://scenery.flightgear.org/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors">Baza scenerii</a>
+          <a href="https://liveries.flightgear.org/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors">Baza malowań</a>
+        </nav>
+        <p class="text-gray-600 font-bold text-xs uppercase tracking-widest leading-loose">
+          &copy; {new Date().getFullYear()} FLIGHTGEAR POLSKA TEAM | PORTAL INFORMACYJNY<br/>LOTY VFR/IFR • RECENZJE • SPOŁECZNOŚĆ
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

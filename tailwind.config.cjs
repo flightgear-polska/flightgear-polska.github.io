@@ -9,14 +9,16 @@ module.exports = {
       },
       colors: {
         brand: {
-          50: '#f0fdfa',
-          500: '#14b8a6',
-          600: '#0d9488',
-          900: '#134e4a',
+          50: '#ecfeff',
+          400: '#22d3ee',
+          500: '#06b6d4',
+          600: '#0891b2',
+          900: '#164e63',
         },
         dark: {
-          900: '#0f172a',
-          800: '#1e293b',
+          950: '#050505',
+          900: '#0a0a0a',
+          800: '#141414',
         }
       },
       animation: {
@@ -36,5 +38,5 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

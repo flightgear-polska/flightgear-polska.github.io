@@ -2,10 +2,24 @@
 import Layout from '../../../layouts/Layout.astro';
 import { parse } from 'csv-parse/sync';
 
+const typeLabels: Record<string, string> = {
+  large_airport: 'Duże lotnisko',
+  medium_airport: 'Średnie lotnisko',
+  small_airport: 'Małe lotnisko',
+  heliport: 'Lądowisko dla helikopterów',
+};
+
+const typeIntro: Record<string, string> = {
+  large_airport: 'To jeden z największych portów lotniczych w polskiej części scenerii FlightGear – spodziewaj się rozbudowanej infrastruktury, wielu dróg startowych i ruchu charakterystycznego dla lotnictwa komunikacyjnego.',
+  medium_airport: 'Średniej wielkości port, dobrze sprawdzający się zarówno do lotów VFR, jak i treningu procedur instrumentalnych na mniejszych liniowcach.',
+  small_airport: 'Niewielkie lotnisko lub lądowisko aeroklubowe – idealne miejsce na spokojny lot VFR Cessną 172P lub naszym PZL Koliber 150.',
+  heliport: 'Lądowisko przeznaczone głównie dla śmigłowców – dobre miejsce do testowania precyzyjnego lądowania w ograniczonej przestrzeni.',
+};
+
 export async function getStaticPaths() {
   const response = await fetch('https://raw.githubusercontent.com/davidmegginson/ourairports-data/main/airports.csv');
   const csvData = await response.text();
-  
+
   const records = parse(csvData, {
     columns: true,
     skip_empty_lines: true
@@ -15,64 +29,320 @@ export async function getStaticPaths() {
     (lot: any) => lot.iso_country === 'PL' && lot.type !== 'closed' && lot.ident.length === 4
   );
 
-  return lotniskaPL.map((l: any) => ({
-    params: { icao: l.ident.toLowerCase() },
-    props: { 
-      miasto: l.municipality || 'Polska', 
-      kod: l.ident, 
-      nazwa: l.name, 
-      wspolrzedne: `${l.latitude_deg}, ${l.longitude_deg}` 
-    }
-  }));
+  return lotniskaPL.map((l: any) => {
+    const pobliskie = lotniskaPL
+      .filter((other: any) => other.iso_region === l.iso_region && other.ident !== l.ident)
+      .map((other: any) => ({
+        icao: other.ident.toLowerCase(),
+        kod: other.ident,
+        nazwa: other.name,
+      }))
+      .slice(0, 4);
+
+    return {
+      params: { icao: l.ident.toLowerCase() },
+      props: {
+        miasto: l.municipality || 'Polska',
+        kod: l.ident,
+        nazwa: l.name,
+        wspolrzedne: `${l.latitude_deg}, ${l.longitude_deg}`,
+        typ: l.type,
+        elevation: l.elevation_ft,
+        gpsCode: l.gps_code || l.ident,
+        pobliskie,
+      },
+    };
+  });
 }
 
-const { miasto, kod, nazwa, wspolrzedne } = Astro.props;
+const { miasto, kod, nazwa, wspolrzedne, typ, elevation, gpsCode, pobliskie } = Astro.props;
+const [lat, lon] = wspolrzedne.split(',').map((v: string) => v.trim());
+const siteUrl = 'https://flightgear-polska.github.io';
+const typLabel = typeLabels[typ] || 'Lotnisko';
+const intro = typeIntro[typ] || typeIntro.small_airport;
+
+const faq = [
+  {
+    q: `Czy lotnisko ${kod.toUpperCase()} jest dostępne w darmowej wersji FlightGear?`,
+    a: `Tak. Bazowa sceneria terenu z lokalizacją ${nazwa} jest generowana automatycznie z danych geograficznych dostępnych w każdej instalacji FlightGear – nie wymaga dodatkowych zakupów.`,
+  },
+  {
+    q: `Jakie współrzędne GPS mam wpisać do FMC dla ${kod.toUpperCase()}?`,
+    a: `Lotnisko znajduje się na współrzędnych ${wspolrzedne}. W większości samolotów wystarczy jednak wpisać sam kod ICAO „${kod.toUpperCase()}" w komputerze pokładowym, by automatycznie załadować pełne dane nawigacyjne.`,
+  },
+];
 ---
-<Layout title={`Symulator Lotu ${miasto} | Ląduj na ${nazwa} (${kod.toUpperCase()}) Darmowa Gra`}>
+<Layout
+  title={`Symulator Lotu ${miasto} | Ląduj na ${nazwa} (${kod.toUpperCase()}) Darmowa Gra`}
+  description={`Pobierz darmowy symulator lotu FlightGear i wystartuj z lotniska ${nazwa} (${kod.toUpperCase()}) w okolicach miejscowości ${miasto}. Dane nawigacyjne ICAO i współrzędne GPS.`}
+>
   <script type="application/ld+json" set:html={`
     {
        "@context": "https://schema.org",
-       "@type": "Place",
-       "name": "${nazwa}",
+       "@type": "Airport",
+       "name": "${nazwa.replace(/"/g, '\\"')}",
+       "iataCode": "",
+       "icaoCode": "${kod.toUpperCase()}",
        "geo": {
          "@type": "GeoCoordinates",
-         "latitude": "${wspolrzedne.split(',')[0]}",
-         "longitude": "${wspolrzedne.split(',')[1]}"
+         "latitude": "${lat}",
+         "longitude": "${lon}"
+       },
+       "address": {
+         "@type": "PostalAddress",
+         "addressLocality": "${miasto.replace(/"/g, '\\"')}",
+         "addressCountry": "PL"
        }
     }
   `} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  })} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Lotniska', item: `${siteUrl}/lotniska/polska/` },
+      { '@type': 'ListItem', position: 3, name: kod.toUpperCase(), item: `${siteUrl}/lotniska/polska/${kod.toLowerCase()}/` },
+    ],
+  })} />
 
   <header class="bg-dark-800 border-b border-white/5 py-20 relative overflow-hidden">
     <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-500/10 blur-[100px]"></div>
     <div class="container mx-auto px-6 relative z-10">
-      <a href="/" class="text-brand-500 hover:text-white transition text-sm mb-4 inline-block">&larr; Powrót na główną</a>
+      <nav aria-label="Okruszki" class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-brand-400 transition-colors">Strona główna</a> / <a href="/lotniska/polska/" class="hover:text-brand-400 transition-colors">Lotniska</a> / <span class="text-gray-300">{kod.toUpperCase()}</span>
+      </nav>
+      <span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-widest bg-brand-500/20 text-brand-400 mb-4">{typLabel}</span>
       <h1 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-4">
         Lotnisko <span class="text-brand-400">{nazwa}</span> ({kod.toUpperCase()})
       </h1>
-      <p class="text-xl text-gray-400">Pobierz darmowy symulator i wystartuj z miasta {miasto}.</p>
+      <p class="text-xl text-gray-400 max-w-2xl">{intro}</p>
     </div>
   </header>
 
   <main class="container mx-auto px-6 py-16">
-    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 max-w-2xl">
-      <h2 class="text-2xl font-bold mb-6">Dane nawigacyjne do GPS / FMC</h2>
-      <ul class="space-y-4 text-gray-300">
-        <li class="flex justify-between border-b border-white/5 pb-2">
-          <span>Kod ICAO</span> <span class="font-mono text-white">{kod.toUpperCase()}</span>
-        </li>
-        <li class="flex justify-between border-b border-white/5 pb-2">
-          <span>Współrzędne</span> <span class="font-mono text-white">{wspolrzedne}</span>
-        </li>
-        <li class="flex justify-between border-b border-white/5 pb-2">
-          <span>Miasto</span> <span class="text-white">{miasto}</span>
-        </li>
-      </ul>
-      
-      <div class="mt-8">
-        <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-brand-500 hover:bg-brand-600 text-white text-center font-bold rounded-lg transition shadow-[0_0_15px_rgba(20,184,166,0.3)]">
-          Pobierz symulator z tą scenerią
-        </a>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-8 lg:col-span-1">
+        <h2 class="text-2xl font-bold mb-6">Dane nawigacyjne do GPS / FMC</h2>
+        <ul class="space-y-4 text-gray-300">
+          <li class="flex justify-between border-b border-white/5 pb-2">
+            <span>Kod ICAO</span> <span class="font-mono text-white">{kod.toUpperCase()}</span>
+          </li>
+          <li class="flex justify-between border-b border-white/5 pb-2">
+            <span>Kod GPS</span> <span class="font-mono text-white">{gpsCode.toUpperCase()}</span>
+          </li>
+          <li class="flex justify-between border-b border-white/5 pb-2">
+            <span>Współrzędne</span> <span class="font-mono text-white text-sm">{wspolrzedne}</span>
+          </li>
+          {elevation && (
+            <li class="flex justify-between border-b border-white/5 pb-2">
+              <span>Wysokość n.p.m.</span> <span class="font-mono text-white">{elevation} ft</span>
+            </li>
+          )}
+          <li class="flex justify-between border-b border-white/5 pb-2">
+            <span>Miasto</span> <span class="text-white">{miasto}</span>
+          </li>
+          <li class="flex justify-between pb-2">
+            <span>Typ</span> <span class="text-white">{typLabel}</span>
+          </li>
+        </ul>
+
+        <div class="mt-8">
+          <a href="https://www.flightgear.org/download/" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-brand-500 hover:bg-brand-600 text-white text-center font-bold rounded-lg transition shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+            Pobierz symulator z tą scenerią
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 space-y-8">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div class="flex items-center justify-between gap-4 mb-4">
+            <h2 class="text-2xl font-bold">Aktualna pogoda (METAR)</h2>
+            <span id="metar-status-badge" class="hidden shrink-0 px-2 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400">NA ŻYWO</span>
+          </div>
+          <div id="metar-widget" data-icao={kod.toUpperCase()}>
+            <p id="metar-loading" class="text-gray-500 text-sm animate-pulse">Pobieranie aktualnego METAR z serwera NOAA…</p>
+            <p id="metar-error" class="hidden text-gray-500 text-sm">Brak aktualnych danych METAR dla tego lotniska – to normalne przy mniejszych lądowiskach bez stacji pogodowej. Sprawdź pogodę bezpośrednio w symulatorze po starcie.</p>
+            <div id="metar-content" class="hidden">
+              <p id="metar-raw" class="font-mono text-sm text-brand-300 bg-dark-900/60 rounded-lg p-4 mb-4 break-all"></p>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Wiatr</p>
+                  <p id="metar-wind" class="text-white font-bold">—</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Widzialność</p>
+                  <p id="metar-vis" class="text-white font-bold">—</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Temp. / Punkt rosy</p>
+                  <p id="metar-temp" class="text-white font-bold">—</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">QNH</p>
+                  <p id="metar-qnh" class="text-white font-bold">—</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600 text-xs mt-4">Dane pobierane na żywo z serwera tekstowego amerykańskiej National Weather Service (NOAA), z automatycznym przełączeniem na sieć VATSIM, gdyby główne źródło było chwilowo niedostępne.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <h2 class="text-2xl font-bold mb-4">Jak tu wystartować</h2>
+          <p class="text-gray-300 leading-relaxed mb-4">
+            Po uruchomieniu FlightGeara wybierz w menu startowym lotnisko o kodzie <strong class="text-white">{kod.toUpperCase()}</strong> – sceneria terenu zostanie wygenerowana automatycznie na podstawie danych geograficznych. Jeśli dopiero zaczynasz, zalecamy start na Cessnie 172P i przejście przez naszą procedurę rozruchu.
+          </p>
+          <a href="/poradniki/pierwszy-lot-cold-and-dark/" class="text-brand-400 font-bold text-sm hover:text-brand-300 transition-colors">Zobacz poradnik: pierwszy lot Cold & Dark &rarr;</a>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <h2 class="text-2xl font-bold mb-4">Najczęstsze pytania</h2>
+          <div class="space-y-4">
+            {faq.map(item => (
+              <details class="group border-t border-white/5 pt-4 first:border-t-0 first:pt-0">
+                <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center gap-4">
+                  {item.q}
+                  <span class="text-brand-500 text-xl group-open:rotate-45 transition-transform shrink-0">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed text-sm">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        {pobliskie.length > 0 && (
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-4">Pobliskie lotniska w tym regionie</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {pobliskie.map((p: any) => (
+                <a href={`/lotniska/polska/${p.icao}/`} class="flex justify-between items-center bg-dark-900/60 border border-white/5 rounded-lg px-4 py-3 hover:border-brand-500 transition">
+                  <span class="text-gray-300 text-sm">{p.nazwa}</span>
+                  <span class="font-mono text-brand-400 text-xs shrink-0 ml-2">{p.kod}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </main>
+
+  <script>
+    async function fetchRawMetar(icao: string): Promise<string | null> {
+      // Źródło główne: oficjalny serwer tekstowy US National Weather Service (NOAA).
+      // Format pliku: linia 1 = data/godzina UTC, linia 2 = surowy raport METAR.
+      try {
+        const res = await fetch(`https://tgftp.nws.noaa.gov/data/observations/metar/stations/${icao}.TXT`);
+        if (res.ok) {
+          const text = (await res.text()).trim();
+          const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+          const metarLine = lines.find(l => l.startsWith(icao)) || lines[lines.length - 1];
+          if (metarLine && metarLine.length > 10) return metarLine;
+        }
+      } catch (e) {
+        // Serwer NOAA nie zawsze wysyła nagłówki CORS – w razie błędu próbujemy źródła zapasowego.
+      }
+
+      // Źródło zapasowe: VATSIM METAR API (CORS włączone), używane tylko gdy NOAA jest niedostępne.
+      try {
+        const res = await fetch(`https://metar.vatsim.net/${icao}`);
+        if (res.ok) {
+          const raw = (await res.text()).trim();
+          if (raw && raw.length > 10) return raw;
+        }
+      } catch (e) {
+        // brak danych z żadnego źródła
+      }
+
+      return null;
+    }
+
+    async function loadMetar() {
+      const widget = document.getElementById('metar-widget');
+      if (!widget) return;
+      const icao = widget.dataset.icao as string;
+
+      const loadingEl = document.getElementById('metar-loading');
+      const errorEl = document.getElementById('metar-error');
+      const contentEl = document.getElementById('metar-content');
+      const badgeEl = document.getElementById('metar-status-badge');
+
+      const raw = await fetchRawMetar(icao);
+
+      if (!raw) {
+        loadingEl?.classList.add('hidden');
+        errorEl?.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const rawEl = document.getElementById('metar-raw');
+        if (rawEl) rawEl.textContent = raw;
+
+        // Wiatr, np. 19003KT lub VRB02KT
+        const wind = raw.match(/\b(\d{3}|VRB)(\d{2,3})(G\d{2,3})?KT\b/);
+        const windEl = document.getElementById('metar-wind');
+        if (windEl) {
+          if (wind) {
+            const kier = wind[1] === 'VRB' ? 'zmienny' : `${wind[1]}°`;
+            const gust = wind[3] ? ` (porywy ${wind[3].slice(1)}kt)` : '';
+            windEl.textContent = `${kier} / ${parseInt(wind[2], 10)}kt${gust}`;
+          } else {
+            windEl.textContent = 'cisza / brak danych';
+          }
+        }
+
+        // Widzialnosc: CAVOK, 9999, lub np. 8000
+        const visEl = document.getElementById('metar-vis');
+        if (visEl) {
+          if (/\bCAVOK\b/.test(raw)) {
+            visEl.textContent = 'CAVOK';
+          } else {
+            const vis = raw.match(/\s(\d{4})\s/);
+            visEl.textContent = vis ? `${parseInt(vis[1], 10) / 1000} km` : '—';
+          }
+        }
+
+        // Temperatura/punkt rosy, np. 13/04 lub M02/M05
+        const temp = raw.match(/\s(M?\d{2})\/(M?\d{2})\s/);
+        const tempEl = document.getElementById('metar-temp');
+        if (tempEl) {
+          if (temp) {
+            const fmt = (v: string) => (v.startsWith('M') ? `-${v.slice(1)}` : v);
+            tempEl.textContent = `${fmt(temp[1])}°C / ${fmt(temp[2])}°C`;
+          } else {
+            tempEl.textContent = '—';
+          }
+        }
+
+        // QNH, np. Q1014 (hPa) lub A2992 (inHg)
+        const qnhEl = document.getElementById('metar-qnh');
+        if (qnhEl) {
+          const q = raw.match(/\bQ(\d{4})\b/);
+          const a = raw.match(/\bA(\d{4})\b/);
+          if (q) qnhEl.textContent = `${q[1]} hPa`;
+          else if (a) qnhEl.textContent = `${(parseInt(a[1], 10) / 100).toFixed(2)} inHg`;
+          else qnhEl.textContent = '—';
+        }
+
+        loadingEl?.classList.add('hidden');
+        contentEl?.classList.remove('hidden');
+        badgeEl?.classList.remove('hidden');
+      } catch (e) {
+        loadingEl?.classList.add('hidden');
+        errorEl?.classList.remove('hidden');
+      }
+    }
+
+    loadMetar();
+  </script>
 </Layout>

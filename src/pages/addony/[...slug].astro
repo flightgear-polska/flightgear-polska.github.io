@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const addony = await getCollection('addony');
+  return addony.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const siteUrl = 'https://flightgear-polska.github.io';
+
+const trudnoscKolor: Record<string, string> = {
+  'Łatwa': 'bg-emerald-500/20 text-emerald-400',
+  'Średnia': 'bg-amber-500/20 text-amber-400',
+  'Zaawansowana': 'bg-red-500/20 text-red-400',
+};
+---
+<Layout title={`${entry.data.nazwa} – addon do FlightGear | Instalacja`} description={entry.data.opisKrotki}>
+  <main class="container mx-auto px-6 py-20 max-w-4xl">
+    <nav aria-label="Okruszki" class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-brand-400 transition-colors">Strona główna</a> /
+      <a href="/addony/" class="hover:text-brand-400 transition-colors">Addony</a> /
+      <span class="text-gray-300">{entry.data.nazwa}</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <span class="inline-block px-3 py-1 rounded text-sm font-bold bg-brand-500/20 text-brand-400">{entry.data.kategoria}</span>
+      <span class={`px-3 py-1 rounded text-sm font-bold ${trudnoscKolor[entry.data.trudnoscInstalacji]}`}>Instalacja: {entry.data.trudnoscInstalacji}</span>
+    </div>
+    <h1 class="text-4xl lg:text-5xl font-heading font-black text-white mb-4 leading-tight">{entry.data.nazwa}</h1>
+    <p class="text-xl text-gray-400 mb-10">{entry.data.opisKrotki}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-dark-800 border border-white/10 rounded-2xl p-6">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-4">Informacje</h2>
+        <ul class="space-y-3 text-sm">
+          <li class="flex justify-between gap-4 border-b border-white/5 pb-2">
+            <span class="text-gray-400">Kompatybilność</span>
+            <span class="text-white font-bold text-right">{entry.data.kompatybilnosc}</span>
+          </li>
+          {entry.data.autor && (
+            <li class="flex justify-between gap-4 border-b border-white/5 pb-2">
+              <span class="text-gray-400">Autor</span>
+              <span class="text-white font-bold text-right">{entry.data.autor}</span>
+            </li>
+          )}
+        </ul>
+      </div>
+      <div class="bg-dark-800 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-4">Pobieranie</h2>
+          <p class="text-gray-500 text-sm">Zainstaluj addon w kilku krokach – instrukcja w opisie poniżej.</p>
+        </div>
+        <div class="mt-6 space-y-3">
+          <a href={entry.data.pobierzUrl} target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-brand-500 hover:bg-brand-600 text-dark-950 text-center font-black uppercase tracking-widest text-sm rounded-lg transition-colors">
+            Pobierz addon
+          </a>
+          {entry.data.wikiUrl && (
+            <a href={entry.data.wikiUrl} target="_blank" rel="noopener noreferrer" class="block w-full py-3 border border-gray-700 hover:border-brand-400 hover:text-brand-400 text-white text-center font-bold uppercase tracking-widest text-sm rounded-lg transition-colors">
+              Dokumentacja na FlightGear Wiki
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <article class="prose prose-invert prose-headings:font-heading prose-headings:text-white prose-a:text-brand-400 max-w-none">
+      <Content />
+    </article>
+
+    <a href="/addony/" class="inline-block mt-12 text-gray-400 hover:text-brand-400 transition-colors text-sm">&larr; Wróć do listy addonów</a>
+  </main>
+
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: entry.data.nazwa,
+    description: entry.data.opisKrotki,
+    applicationCategory: 'SimulationApplication',
+    operatingSystem: 'Windows, macOS, Linux',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  })} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Addony', item: `${siteUrl}/addony/` },
+      { '@type': 'ListItem', position: 3, name: entry.data.nazwa, item: `${siteUrl}/addony/${entry.slug}/` },
+    ],
+  })} />
+</Layout>

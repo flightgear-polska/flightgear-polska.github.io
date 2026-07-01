@@ -1,30 +1,36 @@
 ---
+// Adres serwisu pobierany z astro.config.mjs (site), żeby nigdy nie rozjechał się
+// z rzeczywistym hostingiem (np. po migracji z GitHub Pages na własną domenę).
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://flightgear-polska.github.io';
 ---
-<script type="application/ld+json">
-[{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "FlightGear Polska",
-  "applicationCategory": "GameApplication",
-  "operatingSystem": "Windows, Linux, macOS",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
+<script type="application/ld+json" set:html={JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'FlightGear Polska',
+    alternateName: 'FGPL',
+    url: siteUrl,
+    logo: `${siteUrl}/assets/logo.png`,
+    sameAs: [
+      'https://github.com/flightgear-polska',
+      'https://www.youtube.com/@FlightGearPL',
+      'https://discord.gg/5J7uVYRhZV',
+    ],
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "8934"
-  }
-},
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "Czy ten symulator lotu jest naprawdę za darmo?",
-    "acceptedAnswer": { "@type": "Answer", "text": "Tak, FlightGear jest w 100% darmowym symulatorem open-source." }
-  }]
-}]
-</script>
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'FlightGear Polska',
+    url: siteUrl,
+    inLanguage: 'pl-PL',
+    description: "Polska społeczność darmowego, open-source'owego symulatora lotu FlightGear.",
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteUrl}/lotniska/polska/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  },
+])} />

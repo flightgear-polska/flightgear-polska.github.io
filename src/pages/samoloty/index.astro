@@ -1,30 +1,56 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const samoloty = await getCollection('samoloty');
+const posortowane = samoloty.sort((a, b) => a.data.tag.localeCompare(b.data.tag) || a.data.nazwa.localeCompare(b.data.nazwa));
 ---
-<Layout title="Najlepsze darmowe samoloty do symulatora PC | FlightGear">
-  <div class="container mx-auto px-6 py-32 max-w-5xl">
-    <a href="/" class="text-brand-500 hover:text-white transition text-sm mb-4 inline-block">&larr; Wróć na główną</a>
+<Layout
+  title="Katalog darmowych samolotów do FlightGear | FGPL"
+  description="Ponad 25 darmowych samolotów do FlightGear polecanych przez społeczność FGPL: Airbusy, Boeingi, myśliwce (F-16, MiG-29, Eurofighter), samoloty GA i polski projekt PZL Koliber 150."
+>
+  <main class="container mx-auto px-6 py-20 max-w-5xl">
+    <nav aria-label="Okruszki" class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-brand-400 transition-colors">Strona główna</a> / <span class="text-gray-300">Samoloty</span>
+    </nav>
     <h1 class="text-5xl font-heading font-black text-white mb-8">Katalog <span class="text-brand-500">Maszyn</span></h1>
-    <p class="text-xl text-gray-400 mb-12 leading-relaxed">Poznaj najbardziej dopracowane, darmowe statki powietrzne dostępne we FlightGear. Nasi deweloperzy budują modele lotu w oparciu o realne specyfikacje aerodynamiczne i instrukcje operacyjne producentów (FCOM).</p>
-    
+    <p class="text-xl text-gray-400 mb-12 leading-relaxed">Samoloty do FlightGeara polecane i sprawdzone przez społeczność FGPL – od Cessny na pierwszy lot, przez polski projekt PZL Koliber, po Airbusy, Boeingi i myśliwce takie jak F-16 czy Eurofighter.</p>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <a href="#" class="group block bg-dark-800 border border-white/10 rounded-2xl p-8 hover:border-brand-500 transition relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
-        <div class="relative z-10">
-          <h2 class="text-3xl font-bold mb-4 text-white group-hover:text-brand-400 transition">Boeing 737-800</h2>
-          <p class="text-gray-400 mb-6 font-medium">Ikona lotnictwa pasażerskiego. Posiada w pełni funkcjonalny komputer FMC, obsługę LNAV/VNAV i hiperrealistyczne procedury startowe.</p>
-          <span class="inline-block bg-brand-500/20 text-brand-400 px-3 py-1 rounded text-sm font-bold">Wysoki realizm</span>
-        </div>
-      </a>
-      
-      <a href="#" class="group block bg-dark-800 border border-white/10 rounded-2xl p-8 hover:border-brand-500 transition relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
-        <div class="relative z-10">
-          <h2 class="text-3xl font-bold mb-4 text-white group-hover:text-brand-400 transition">Cessna 172P Skyhawk</h2>
-          <p class="text-gray-400 mb-6 font-medium">Bezapelacyjnie najlepsza i najpopularniejsza maszyna VFR. Idealna do nauki pilotażu, przeglądania widoków nad polskimi miastami i wprawek w układach klasycznych.</p>
-          <span class="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-sm font-bold">Domyślny samolot</span>
-        </div>
+      {posortowane.map(s => (
+        <a href={`/samoloty/${s.slug}/`} class="group block bg-dark-800 border border-white/10 rounded-2xl p-8 hover:border-brand-500 transition relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-950 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+          <div class="relative z-10">
+            <h2 class="text-3xl font-bold mb-2 text-white group-hover:text-brand-400 transition">{s.data.nazwa}</h2>
+            <p class="text-gray-500 text-xs uppercase tracking-widest mb-4">{s.data.typ}</p>
+            <p class="text-gray-400 mb-6 font-medium">{s.data.opisKrotki}</p>
+            <div class="flex items-center justify-between">
+              <span class="inline-block px-3 py-1 rounded text-sm font-bold bg-brand-500/20 text-brand-400">{s.data.tag}</span>
+              <span class="text-white font-bold text-sm group-hover:text-brand-400 transition-colors">Szczegóły &rarr;</span>
+            </div>
+            {s.data.statusRozwoju && (
+              <p class="mt-3 text-xs uppercase tracking-widest text-gray-500">Status: <span class={s.data.statusRozwoju === 'W rozwoju' ? 'text-amber-400' : 'text-emerald-400'}>{s.data.statusRozwoju}</span></p>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-20 pt-12 border-t border-gray-900">
+      <h2 class="text-2xl font-bold text-white mb-2">Polecane dodatki (addony)</h2>
+      <p class="text-gray-400 text-sm mb-8">To nie samoloty, a narzędzia i rozszerzenia polecane przez społeczność – instalujesz je obok dowolnego samolotu. Zebraliśmy je w osobnej, stale aktualizowanej sekcji.</p>
+      <a href="/addony/" class="inline-block px-6 py-3 bg-brand-500 hover:bg-brand-600 text-dark-950 font-black uppercase tracking-widest text-sm rounded-lg transition-colors">
+        Przejdź do katalogu addonów &rarr;
       </a>
     </div>
-  </div>
+  </main>
+
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://flightgear-polska.github.io/' },
+      { '@type': 'ListItem', position: 2, name: 'Samoloty', item: 'https://flightgear-polska.github.io/samoloty/' },
+    ],
+  })} />
 </Layout>

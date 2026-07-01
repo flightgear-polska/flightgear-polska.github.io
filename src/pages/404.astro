@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="404 - Strona nie znaleziona | FlightGear Polska" description="Ta strona nie istnieje. Wróć na stronę główną FlightGear Polska." noindex={true}>
+  <main class="container mx-auto px-6 py-32 text-center max-w-xl">
+    <p class="text-brand-500 font-mono text-sm tracking-widest mb-4">BŁĄD 404</p>
+    <h1 class="text-4xl md:text-5xl font-black uppercase text-white mb-6">Zgubiłeś kurs</h1>
+    <p class="text-gray-400 mb-10">Ta strona nie istnieje albo poleciała w inne miejsce. Wróć na ziemię.</p>
+    <a href="/" class="inline-block bg-brand-500 hover:bg-brand-600 text-dark-950 font-black uppercase tracking-widest px-8 py-4 rounded-lg transition-colors">
+      Wróć na stronę główną
+    </a>
+    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-10 text-sm">
+      <a href="/samoloty/" class="text-gray-500 hover:text-brand-400 transition-colors">Samoloty</a>
+      <a href="/addony/" class="text-gray-500 hover:text-brand-400 transition-colors">Addony</a>
+      <a href="/poradniki/" class="text-gray-500 hover:text-brand-400 transition-colors">Poradniki</a>
+      <a href="/lotniska/polska/" class="text-gray-500 hover:text-brand-400 transition-colors">Lotniska</a>
+      <a href="/wydarzenia/" class="text-gray-500 hover:text-brand-400 transition-colors">Wydarzenia</a>
+    </nav>
+  </main>
+</Layout>
