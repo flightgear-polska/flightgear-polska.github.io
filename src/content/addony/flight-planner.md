@@ -2,7 +2,7 @@
 nazwa: "Flight Planner"
 kategoria: "VFR i nawigacja"
 opisKrotki: "Elastyczne narzędzie do ręcznego planowania lotu i odprawy lotniskowej, bez konieczności korzystania z zewnętrznych serwisów."
-trudnoscInstalacji: "Łatwa"
+typ: "Pomoc"
 kompatybilnosc: "Wszystkie samoloty"
 pobierzUrl: "https://gitlab.com/fg_shfsn/addons/flight-planner"
 wikiUrl: "https://wiki.flightgear.org/Addon"

@@ -2,7 +2,7 @@
 nazwa: "LittleNavMap Integration"
 kategoria: "VFR i nawigacja"
 opisKrotki: "Łączy FlightGeara z popularną zewnętrzną mapą nawigacyjną LittleNavMap, pokazując pozycję samolotu w czasie rzeczywistym na rozbudowanej mapie."
-trudnoscInstalacji: "Średnia"
+typ: "Pomoc"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "slawekmikula"
 pobierzUrl: "https://github.com/slawekmikula/flightgear-addon-littlenavmap"

@@ -2,7 +2,7 @@
 nazwa: "Aerotow Everywhere"
 kategoria: "Obsługa naziemna i multiplayer"
 opisKrotki: "Dodaje AI-wyciągarkę holującą szybowce na każdym lotnisku, nawet jeśli oryginalnie nie miało zdefiniowanej procedury aerotow."
-trudnoscInstalacji: "Średnia"
+typ: "Funkcjonalność"
 kompatybilnosc: "Szybowce"
 autor: "Roman Ludwicki (PlayeRom)"
 pobierzUrl: "https://github.com/PlayeRom/flightgear-addon-aerotow-everywhere"

@@ -2,7 +2,7 @@
 nazwa: "Hoppie ACARS Client"
 kategoria: "VFR i nawigacja"
 opisKrotki: "Łączy FlightGeara z systemem ACARS Hoppie'go, używanym na sieciach VATSIM i innych do przesyłania zezwoleń, CPDLC i komunikatów tekstowych."
-trudnoscInstalacji: "Średnia"
+typ: "Funkcjonalność"
 kompatybilnosc: "Samoloty liniowe, loty online (VATSIM/IVAO)"
 autor: "tdammers"
 pobierzUrl: "https://github.com/tdammers/fg-hoppie-acars"

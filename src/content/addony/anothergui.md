@@ -2,7 +2,7 @@
 nazwa: "AnotherGUI"
 kategoria: "Interfejs i kamery"
 opisKrotki: "Dodaje nowy, odświeżony styl interfejsu graficznego FlightGeara, zmieniając wygląd menu i okien dialogowych."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "SP-NTX"
 pobierzUrl: "https://github.com/SP-NTX/AnotherGUI"

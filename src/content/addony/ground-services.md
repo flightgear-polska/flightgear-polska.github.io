@@ -2,7 +2,7 @@
 nazwa: "Ground Services"
 kategoria: "Obsługa naziemna i multiplayer"
 opisKrotki: "Generyczna obsługa naziemna dla wszystkich typów samolotów – paliwo, catering, schody, bez konieczności posiadania własnej obsługi wbudowanej w model."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty, zwłaszcza te bez wbudowanej obsługi naziemnej"
 autor: "ThomasS"
 pobierzUrl: "https://wiki.flightgear.org/Ground_Services"

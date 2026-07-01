@@ -2,7 +2,7 @@
 nazwa: "Logbook Add-on"
 kategoria: "Narzędzia pilota"
 opisKrotki: "Automatyczny dziennik lotów – zapisuje każdy lot do lokalnego pliku wraz z analizą lądowania, czasem w powietrzu i przebytą trasą."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "Roman Ludwicki (PlayeRom)"
 pobierzUrl: "https://github.com/PlayeRom/flightgear-addon-logbook"

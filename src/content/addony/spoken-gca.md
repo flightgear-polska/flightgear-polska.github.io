@@ -2,7 +2,7 @@
 nazwa: "Spoken GCA"
 kategoria: "ATC i immersja"
 opisKrotki: "Offline'owe, mówione podejście kierowane z ziemi (Ground Controlled Approach) – kontroler głosowo prowadzi Cię do pasa bez potrzeby połączenia z siecią online."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty, przydatny przy słabej widoczności"
 pobierzUrl: "https://wiki.flightgear.org/Spoken_GCA"
 wikiUrl: "https://wiki.flightgear.org/Spoken_GCA"

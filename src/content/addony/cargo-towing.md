@@ -2,7 +2,7 @@
 nazwa: "Cargo Towing Addon"
 kategoria: "Obsługa naziemna i multiplayer"
 opisKrotki: "Pozwala dowolnemu helikopterowi ciągnąć, przenosić i ustawiać różne modele – od ładunków po elementy budowane na ziemi, np. wieże."
-trudnoscInstalacji: "Średnia"
+typ: "Funkcjonalność"
 kompatybilnosc: "Helikoptery"
 autor: "Wayne Bragg (wlbragg)"
 pobierzUrl: "https://wiki.flightgear.org/Cargo_Towing_Addon"

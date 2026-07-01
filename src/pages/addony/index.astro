@@ -17,10 +17,10 @@ const pogrupowane = kategorie.map(kategoria => ({
   wpisy: addony.filter(a => a.data.kategoria === kategoria).sort((a, b) => a.data.nazwa.localeCompare(b.data.nazwa)),
 })).filter(grupa => grupa.wpisy.length > 0);
 
-const trudnoscKolor: Record<string, string> = {
-  'Łatwa': 'bg-emerald-500/20 text-emerald-400',
-  'Średnia': 'bg-amber-500/20 text-amber-400',
-  'Zaawansowana': 'bg-red-500/20 text-red-400',
+const typKolor: Record<string, string> = {
+  'Pomoc': 'bg-sky-500/20 text-sky-400',
+  'Funkcjonalność': 'bg-brand-500/20 text-brand-400',
+  'Dev': 'bg-violet-500/20 text-violet-400',
 };
 ---
 <Layout
@@ -43,7 +43,7 @@ const trudnoscKolor: Record<string, string> = {
             <a href={`/addony/${a.slug}/`} class="group block bg-dark-800 border border-white/10 rounded-2xl p-6 hover:border-brand-500 transition">
               <div class="flex items-start justify-between gap-3 mb-3">
                 <h3 class="text-lg font-bold text-white group-hover:text-brand-400 transition-colors">{a.data.nazwa}</h3>
-                <span class={`shrink-0 px-2 py-1 rounded text-xs font-bold ${trudnoscKolor[a.data.trudnoscInstalacji]}`}>{a.data.trudnoscInstalacji}</span>
+                <span class={`shrink-0 px-2 py-1 rounded text-xs font-bold ${typKolor[a.data.typ]}`}>{a.data.typ}</span>
               </div>
               <p class="text-gray-400 text-sm mb-3">{a.data.opisKrotki}</p>
               <p class="text-gray-600 text-xs uppercase tracking-widest">{a.data.kompatybilnosc}</p>

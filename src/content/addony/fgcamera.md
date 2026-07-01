@@ -2,7 +2,7 @@
 nazwa: "FGCamera"
 kategoria: "Interfejs i kamery"
 opisKrotki: "Rozszerzone zarządzanie kamerami i widokami – ułatwia tworzenie własnych ujęć, np. do nagrań na YouTube czy zrzutów do galerii."
-trudnoscInstalacji: "Średnia"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "Roman Ludwicki (PlayeRom)"
 pobierzUrl: "https://github.com/PlayeRom/flightgear-addon-fgcamera"

@@ -2,7 +2,7 @@
 nazwa: "Landing Rate Addon"
 kategoria: "Narzędzia pilota"
 opisKrotki: "Mierzy i wyświetla prędkość zniżania w chwili dotknięcia pasa – proste narzędzie do oceny jakości własnych lądowań."
-trudnoscInstalacji: "Łatwa"
+typ: "Pomoc"
 kompatybilnosc: "Wszystkie samoloty"
 pobierzUrl: "https://forum.flightgear.org/viewtopic.php?f=6&t=33101"
 wikiUrl: "https://wiki.flightgear.org/Landing_Rate_addon"

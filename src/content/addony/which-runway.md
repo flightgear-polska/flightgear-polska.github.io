@@ -2,7 +2,7 @@
 nazwa: "Which Runway Add-on"
 kategoria: "VFR i nawigacja"
 opisKrotki: "Dynamicznie wyznacza optymalny pas startowy lub lądowania na podstawie aktualnego wiatru, licząc składowe wiatru czołowego i bocznego dla każdego pasa."
-trudnoscInstalacji: "Łatwa"
+typ: "Pomoc"
 kompatybilnosc: "Wszystkie samoloty, wszystkie lotniska"
 autor: "Roman Ludwicki (PlayeRom)"
 pobierzUrl: "https://github.com/PlayeRom/flightgear-addon-which-runway"

@@ -2,7 +2,7 @@
 nazwa: "SimBrief Import"
 kategoria: "Narzędzia pilota"
 opisKrotki: "Importuje plan lotu, masę, paliwo i wiatry na wysokości wprost z SimBrief – bez ręcznego przepisywania danych do FMC."
-trudnoscInstalacji: "Średnia"
+typ: "Pomoc"
 kompatybilnosc: "Samoloty z FMC/MCDU (Airbusy, Boeingi, MD-11)"
 autor: "tdammers"
 pobierzUrl: "https://github.com/tdammers/fg-simbrief-addon"

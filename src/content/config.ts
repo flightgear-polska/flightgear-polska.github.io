@@ -56,7 +56,7 @@ const addony = defineCollection({
       'Interfejs i kamery',
     ]),
     opisKrotki: z.string(),
-    trudnoscInstalacji: z.enum(['Łatwa', 'Średnia', 'Zaawansowana']),
+    typ: z.enum(['Pomoc', 'Funkcjonalność', 'Dev']),
     kompatybilnosc: z.string(),
     autor: z.string().optional(),
     pobierzUrl: z.string(),

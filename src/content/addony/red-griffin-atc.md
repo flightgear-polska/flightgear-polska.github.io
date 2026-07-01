@@ -2,7 +2,7 @@
 nazwa: "Red Griffin ATC"
 kategoria: "ATC i immersja"
 opisKrotki: "Mówiący kontroler ruchu lotniczego z rozszerzoną funkcjonalnością względem domyślnego ATC FlightGeara."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "RedGriffin"
 pobierzUrl: "https://wiki.flightgear.org/Red_Griffin_ATC"

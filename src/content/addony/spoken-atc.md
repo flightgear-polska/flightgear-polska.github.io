@@ -2,7 +2,7 @@
 nazwa: "Spoken ATC"
 kategoria: "ATC i immersja"
 opisKrotki: "Dodaje mówioną kontrolę ruchu lotniczego – zamiast czytać komunikaty tekstowe, słyszysz instrukcje głosowe od wirtualnego kontrolera."
-trudnoscInstalacji: "Łatwa"
+typ: "Funkcjonalność"
 kompatybilnosc: "Wszystkie samoloty"
 autor: "Torsten"
 pobierzUrl: "https://wiki.flightgear.org/Spoken_ATC"
